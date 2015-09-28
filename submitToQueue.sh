@@ -12,7 +12,7 @@ THIS_HOST=`hostname`
 ${JOB_MANAGER_DIR}checkQuota.sh ${QUOTA_MAX}
 QUOTA_IS_OVER_LIMIT=$?
 
-# Check if quota is over limit and job submission is not paused, pause it and send email to me.
+# If quota is over limit and job submission is not paused, pause it and send email to me.
 if [ ${QUOTA_IS_OVER_LIMIT} ]
 then
     if [ ! -f ${JOB_MANAGER_DIR}pause ]
