@@ -13,7 +13,7 @@ ${JOB_MANAGER_DIR}checkQuota.sh ${QUOTA_MAX}
 QUOTA_IS_OVER_LIMIT=$?
 
 # If quota is over limit and job submission is not paused, pause it and send email to me.
-if [ ${QUOTA_IS_OVER_LIMIT} ]
+if [ ${QUOTA_IS_OVER_LIMIT} -ne "0" ]
 then
     if [ ! -f ${JOB_MANAGER_DIR}pause ]
     then
@@ -49,6 +49,11 @@ do
 	
 	for ((i=0; i<N_SUBMIT; i++))
 	do
+	    if [ `wc -l ${FILE} | awk '{print $1}'` -eq "0" ]
+	    then
+		break
+	    fi
+	    
 	    # Read line from file
 	    LINE=$(head -n 1 $FILE)
 	    
@@ -60,4 +65,5 @@ do
 	done
     fi
 done
+
 rm ${JOB_MANAGER_DIR}queueSnapshot
